@@ -1,11 +1,17 @@
 //------DEPENDENCIES
 const express = require("express")
-const app = express();
+const methodOverride = require('method-override')
 
+const app = express();
 //------CONFIG
 const PORT = 3000
 
 //------MIDDLEWARE
+app.set('view engine', 'jsx')
+app.engine('jsx', require('express-react-views').createEngine())
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 //prefix any routes exposed in this controller
 app.use("/places", require("./controllers/places_controller"))
@@ -14,12 +20,12 @@ app.use("/places", require("./controllers/places_controller"))
 
 // / -> sends hello world
 app.get("/", (req, res) => {
-    res.send("GET / hello world")
+    res.render("home")
 })
 
 //anything not matched will be caught by this route
 app.get("*", (req, res) => {
-    res.status(404).send("404 Page not found, perhaps you go the route wrong?")
+    res.render('home')
 })
 
 //------app listens on this port
