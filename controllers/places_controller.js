@@ -12,17 +12,21 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
-  db.Place.create(req.body)
-    .then(() => {
-      res.redirect("/places");
-    })
-    .catch((err) => {
-      console.log("err", err);
-      res.render("error404");
-    });
-});
+router.post('/', (req, res) => {
+  if (!req.body.pic) {
+    // Default image if one is not provided
+    req.body.pic = 'http://placekitten.com/400/400'
+  }
 
+  db.Place.create(req.body)
+  .then(() => {
+      res.redirect('/places')
+  })
+  .catch(err => {
+      console.log('err', err)
+      res.render('error404')
+  })
+})
 router.get("/new", (req, res) => {
   res.render("places/new");
 });
