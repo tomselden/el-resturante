@@ -27,6 +27,9 @@ function Def (html) {
                     </ul>
                 </nav>
                 {html.children}
+                <div>
+                    Copyright Fake Dev LLC 2022
+                </div>
             </body>
         </html>
     )
