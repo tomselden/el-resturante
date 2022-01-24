@@ -16,7 +16,14 @@ app.use(methodOverride('_method'))
 //prefix any routes exposed in this controller
 app.use("/places", require("./controllers/places_controller"))
 
-//------ROUTES
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://tselden:Seldart63@cluster0.yh7vi.mongodb.net/restRantDB?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
 // / -> sends hello world
 app.get("/", (req, res) => {
