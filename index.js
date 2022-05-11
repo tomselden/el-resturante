@@ -3,8 +3,10 @@ const express = require("express")
 const methodOverride = require('method-override')
 
 const app = express();
+
 //------CONFIG
-const PORT = 3000
+require('dotenv').config();
+const PORT = process.env.PORT;
 
 //------MIDDLEWARE
 app.set('view engine', 'jsx')
